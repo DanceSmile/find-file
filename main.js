@@ -13,7 +13,7 @@ function fmtDate(obj){
   return y+"-"+m.substring(m.length-2,m.length)+"-"+d.substring(d.length-2,d.length);
 }
 
-var config  = fs.readFileSync( path.join(path.resolve('.'), 'config.js')  )
+var config  = fs.readFileSync('./config.js') 
 
 config = JSON.parse(config.toString())
 
