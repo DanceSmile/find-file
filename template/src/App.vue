@@ -94,6 +94,7 @@ export default {
   },
   mounted(){
 
+
     var that = this
      window.ipcRenderer.on('select-reply', function (event, args) {
 
@@ -107,6 +108,8 @@ export default {
 
 
     })
+
+     ipcRenderer.send('select', 'init');
   }
 
  

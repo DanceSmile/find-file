@@ -13,7 +13,7 @@ npm install
 # Run the app
 npm start
 # Build all platform ( window  mac  linx arm )
-npm build
+npm run pack
 # copy config.js
 ```
 

@@ -26,29 +26,50 @@ config = JSON.parse(config.toString())
 const extension = ['.doc', '.pptx', '.docx']
 var filelist = []
  function  fileDisplay (filePath){
+  var files;
   //根据文件路径读取文件，返回文件列表
-   let files = fs.readdirSync(filePath);
+
+  if(  path.basename(filePath).substr(0,1)  === '.'){
+      files = []
+  }else{
+
+      try{
+     files = fs.readdirSync(filePath);
+    }catch(err){
+        files = []
+    }
+
+  }
+
+
+
 
   //遍历读取到的文件列表
   files.forEach(  function(filename){
     //获取当前文件的绝对路径
-    let filedir = path.join(filePath,filename);
+    var filedir = path.join(filePath,filename);
     //根据文件路径获取文件信息，返回一个fs.Stats对象
-    let stats = fs.statSync(filedir)
-    var isFile = stats.isFile();//是文件
-    var isDir = stats.isDirectory();//是文件夹
-    if(isFile  && extension.indexOf( path.extname(filedir).toLowerCase()) !== -1 ){
-        filelist.push({
-          name: path.basename(filedir),
-          fullname: filedir ,
-          create: fmtDate(stats.birthtimeMs),
-          type: path.extname(filedir).toUpperCase().substr(1),
-          stats: stats
-        })
+    try{
+        var stats = fs.statSync(filedir)
+        var isFile = stats.isFile();//是文件
+        var isDir = stats.isDirectory();//是文件夹
+        if(isFile  && extension.indexOf( path.extname(filedir).toLowerCase()) !== -1 ){
+            filelist.push({
+              name: path.basename(filedir),
+              fullname: filedir ,
+              create: fmtDate(stats.birthtimeMs),
+              type: path.extname(filedir).toUpperCase().substr(1),
+              stats: stats
+            })
+        }
+        if(isDir){
+           fileDisplay(filedir);//递归，如果是文件夹，就继续遍历该文件夹下面的文件
+        }
+
+    }catch(err){
+        console.log(err)
     }
-    if(isDir){
-       fileDisplay(filedir);//递归，如果是文件夹，就继续遍历该文件夹下面的文件
-    }
+   
 
 });
 

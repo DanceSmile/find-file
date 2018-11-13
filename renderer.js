@@ -3,7 +3,7 @@
 // All of the Node.js APIs are available in this process.
 
 window.ipcRenderer = require('electron').ipcRenderer;
-window.data = ipcRenderer.send('select', 'init');
+
 
 class Notify {
     emit(event){
