@@ -56,9 +56,15 @@ var filelist = []
 
 
 
-ipcMain.on('synchronous-message', async function(event, arg) {
-  await fileDisplay(config.rootpath)
-  event.returnValue = filelist;
+
+ipcMain.on('select', async function(event, arg) {
+
+  if(arg ==='init'){
+      await fileDisplay(config.rootpath)
+      event.sender.send('select-reply', filelist);
+  }
+  return false;
+
 });
 
 
@@ -87,7 +93,7 @@ let mainWindow
 
 function createWindow () {
   // Create the browser window.
-  mainWindow = new BrowserWindow({width: 800, height: 600})
+  mainWindow = new BrowserWindow({width: 800, height: 800})
 
   // and load the index.html of the app.
   mainWindow.loadFile('index.html')

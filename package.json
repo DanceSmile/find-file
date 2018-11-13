@@ -5,8 +5,7 @@
   "main": "main.js",
   "scripts": {
     "start": "electron .",
-    "pack-win":  "electron-packager . find-file-win --win --out ./build --arch=x64 --app-version=0.0.1 --electron-version=2.0.0"
-
+    "pack": "electron-packager .  find-file  --all -all  app--version=1.1.0"
   },
   "repository": "https://github.com/electron/electron-quick-start",
   "keywords": [
